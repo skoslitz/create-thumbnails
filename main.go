@@ -53,7 +53,11 @@ func thumbnail(wpath, name string) {
 
 	out := resize.Resize(1000, 0, img, resize.Bilinear)
 
-	file, err = os.Create(fp)
+	resampledDir := path.Join(wpath, "_bilder")
+	os.MkdirAll(resampledDir, 0755)
+
+	resampledFp := path.Join(resampledDir, name)
+	file, err = os.Create(resampledFp)
 	if err != nil {
 		log.Println(err)
 		return
@@ -80,7 +84,7 @@ func resample(wpath, name string) {
 
 	out := resize.Resize(300, 0, img, resize.Bilinear)
 
-	resampledDir := path.Join(wpath, "_vorschaubilder")
+	resampledDir := path.Join(wpath, "_bilder", "_vorschaubilder")
 	os.MkdirAll(resampledDir, 0755)
 
 	resampledFp := path.Join(resampledDir, name)
